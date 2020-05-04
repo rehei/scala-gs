@@ -2,7 +2,7 @@ name := "scala-gs"
 
 organization := "com.github.rehei"
 
-version := "0.1-SNAPSHOT"
+version := sys.props.getOrElse("tag", default = "0.0.0")
 
 scalaVersion := "2.12.3"
 crossScalaVersions := Seq("2.12.4", "2.11.11")

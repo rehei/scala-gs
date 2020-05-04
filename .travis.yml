@@ -1,0 +1,26 @@
+language: scala
+jdk: openjdk8
+before_install: unset SBT_OPTS JVM_OPTS
+env:
+  global:
+  - BINTRAY_REALM=Bintray API Realm
+  - BINTRAY_HOST=api.bintray.com
+  - BINTRAY_USER=rehei
+  - secure: lnWx9hBp96XK49Gq15xeoipB3qG7GUYtWGw2UGcp1lMhExt/hRnVaBErg3HhjgokuRY+SBo2v9+JEqcqQUj42ihAXec9OHcUyW4TTTw4EigW4X5VjGC1W3TWaNyHG1eeHNd9bvFpy8Pd3ovAAwUXpseYATQehgFgq9dSbDrylZstnVirgp5p7XMDvCOYa9RsxreQMYl/tpg5B+U3gbIKCzwo6iX7/SGM538WAvKzPEd7GNcSzMBrDoYNDK5T49ak4u1j5sfJgptXSNY4IZ+0lmBNCLvc9qmB2lScugKr/6G4QXtEtT4xbvgRxUQRPRrry/WR0iNuq8xWl7LUNnNK/JJPoF6O+hJDN3GRQ1LjgITDlXttO8fcsyQBn0CZqmYiN5Sqi2eWvMUx3zmrI2rESTjSTN0Z/tL/ug+scAr6cjcA/eGSbeezHcoyNdPc8gfUC6yOx/TfxdGwOnpimy2sAHqrtiABTYsPw9JvEOqilFr+G2XFEPee9fvacy+qG7dt73F1ysA3NPnt+Kxrv7Kl/LnbltXMF8empizPD6F4oXno/0YMS9p+9YslKW7qJum/fr+BWNrHcWdqd6jMAdBZTyOjOxKFLOKHJvwoDVvt9KtMXwMnt7+i/v338/fUew+cnwUIcA19SrTOIqYt+xV+UXSf+b/Zib54Y6YspZH9Ni0=
+script:
+- "./sbt -Dtag=${TRAVIS_TAG} +package"
+deploy:
+- provider: releases
+  api_key:
+    secure: vZU41y5qC8b7w0S1VDsVG5UXDdIhEQ5B+b4qPTAZEr6vHkzLPCVlNI/0N7DFBTLpApJkym2dVCHZEig4sLpxJ9Q4Umv9/wAB1Y5+j082YUDHS1pFJKaTEag6IfYbvvMhhbcSe/2fL9zSH+rkNp+FR1fuEpxZD8BUlpvTzL1bRlxL25g+f6WK0cbqVUvO+e0GYeg+X7r6gNWPbr7XSm7D0zMkvZ6BkEnngwpFcutlakwL0MNUhgzrAeyvC1teTlo9NDPUdXRCicr2woKUvomFmakedNKI/vIscdw2C8Ky1NpM307GI7BwgEwCL89s3HSVBCftkHK1Nx2tsZi3SbNcqeJwu3Zfb0M/HVcPOT6hO1iu8FI7zkx8BU9yYw4h2HWP3eSL8ytOGDBlWT0gHIBgaq7uMkVMt4c/WvSvKY2FYxumNkNdL9d8NLEsp4E1sNqxG098FOi/BwEZZ9dcF7UfmqRvLYZ+Rv7PGg+HU9mAi8hTH285iWMIDXAmFsZe+T9IA9gsN8OuiTted16Lwr/ZgfGeKJtx7BDyXeS0XcldP0X0bmdUBjisWIg0Ps4whL6tR+QTP+1XG6WbSZbcIxdAPV6esbrIowfCEQW0sUg9mvYet2W+5H+pbsnj6/BBqaaALRVfCW4vzzrdN3BlfGDeCIhb/Mop6H1BEIvhWY7Sak0=
+  file:
+  - target/scala-2.12/scala-gs_2.12-${TRAVIS_TAG}.jar
+  - target/scala-2.11/scala-gs_2.11-${TRAVIS_TAG}.jar
+  on:
+    tags: true
+    repo: rehei/scala-gs
+- provider: script
+  script: "./bintray.sh"
+  on:
+    tags: true
+    repo: rehei/scala-gs
