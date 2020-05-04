@@ -1,4 +1,4 @@
-package com.github.rehei.scala.util.gs
+package com.github.rehei.scala.gs
 
 import org.graphstream.graph.implementations.SingleGraph
 import org.graphstream.graph.Node
